@@ -17,4 +17,25 @@ def binary_search(list, item):
     return None
 
 
-print(binary_search([1,3,5,7,9], -1))
+# print(binary_search([1,3,5,7,9], -1))
+
+
+
+def search(nums, t):
+    left = 0
+    right = len(nums) -1
+
+
+    while left <= right:
+        mid = (left +right )// 2
+        
+        if nums[mid] == t:
+            return mid
+        if nums[mid] < t:
+            left = mid + 1
+        else:
+            right = mid - 1
+        
+    return -1
+
+print(search([5], 5))
