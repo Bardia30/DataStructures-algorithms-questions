@@ -47,6 +47,84 @@ def twoNumSum(array, targetSum):
             left_pointer_index += 1
     return []
 
-print(twoNumSum([3, 5, -4, 8, 11, 1, -1, 6], 10))
+# print(twoNumSum([3, 5, -4, 8, 11, 1, -1, 6], 10))
 
 
+
+#review 
+#Solution 1: Brute Force, Double for loop, O(n^2) time, O(1) Space
+
+def twoSumBrute(nums, target):
+    for idx1, num1 in enumerate(nums):
+        for idx2, num2 in enumerate(nums): 
+            if num1 + num2 == target and idx1 != idx2: 
+                return [idx1, idx2]
+
+
+# print(twoSumBrute([3,3], 6))
+
+
+
+
+#solution with sorting list, sliding window
+def twoSumSort(nums, t):
+    
+    if not nums:
+        return None
+    
+    sortedNums = sorted(nums)
+
+    leftIdx = 0
+    rightIdx = len(sortedNums) - 1
+    
+    # print(sortedNums)
+
+    while leftIdx != rightIdx: 
+        left = sortedNums[leftIdx]
+        right = sortedNums[rightIdx]
+        # print(f"left: {left}")
+        # print(f"right: {right}")
+        
+        if left + right == t:
+            firstResult = nums.index(left)
+            secondResult = nums.index(right)
+            if firstResult == secondResult: 
+                #write code to replace scondResult with the second existing element in nums array
+                secondResult = nums.index(right, firstResult + 1)
+            return [firstResult, secondResult]
+
+        elif left + right > t:
+            rightIdx -= 1
+            
+        elif left + right < t: 
+            leftIdx += 1
+            
+    return []
+
+
+
+print(twoSumSort([3,3], 6))
+
+
+
+
+#solution with using hash tables.
+def twoSumHash(nums, target):
+    if not nums:
+        return None
+    
+
+    hasSeen = {}
+
+
+    for num in nums: 
+        if num in hasSeen:
+            firstResult = nums.index(num)
+            secondResult = nums.index(target - num)
+            if firstResult == secondResult: 
+                #write code to replace scondResult with the second existing element in nums array
+                secondResult = nums.index(target - num, firstResult + 1)
+            return [firstResult, secondResult]
+        else:
+            hasSeen[target - num] = True
+    return []
